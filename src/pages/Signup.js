@@ -10,8 +10,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper'; // Import Paper component
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../store/auth';
 import { toast } from 'react-toastify';
 import config from '../config';
@@ -23,7 +24,7 @@ function SignUp() {
     phone: "",
     password: "",
     confirmPassword: "",
-    agreedTerms: false, // Added agreedTerms to the initial state
+    agreedTerms: false, 
   });
 
   const navigate = useNavigate();
@@ -69,14 +70,13 @@ function SignUp() {
           phone: "",
           password: "",
           confirmPassword: "",
-          agreedTerms: false, // Reset the agreedTerms after successful registration
+          agreedTerms: false, 
         });
         toast.success("Registration Successfull!");  
         navigate('/');
       }else{
         toast.error(res_data.extraDetails?res_data.extraDetails:res_data.message);
       }
-
       
     } catch (error) {
       console.log("Registration Error", error);
@@ -89,7 +89,6 @@ function SignUp() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <br />
         <Box
           sx={{
             marginTop: 8,
@@ -98,11 +97,11 @@ function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h4" color="#000000">
+          <Typography component="h1" variant="h4" color="#fff">
             Sign Up
           </Typography>
-          <Paper elevation={3} style={{ padding: '20px', marginTop: '20px', borderRadius: '10px' }}> {/* Wrap the form inside Paper component */}
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Paper elevation={3} sx={{ p: 4, mt: 3, borderRadius: 5, backgroundColor: '#fff' }}>
+            <form onSubmit={handleSubmit} noValidate>
               <TextField
                 margin="normal"
                 required
@@ -114,26 +113,60 @@ function SignUp() {
                 value={user.username}
                 onChange={handleInput}
                 autoFocus
-                sx={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '5px',
-                  '& label': {
-                    color: '#0b0b0b',
-                  },
-                  '&:hover label': {
-                    color: '#efa500',
-                  },
-                }}
               />
-              {/* Other input fields */}
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="off"
+                value={user.email}
+                onChange={handleInput}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="phone"
+                label="Phone Number"
+                name="phone"
+                autoComplete="off"
+                value={user.phone}
+                onChange={handleInput}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="off"
+                value={user.password}
+                onChange={handleInput}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Re-enter Password"
+                type="password"
+                id="confirmPassword"
+                autoComplete="off"
+                value={user.confirmPassword}
+                onChange={handleInput}
+              />
               <FormControlLabel
                 control={<Checkbox 
                            value={user.agreedTerms} 
                            color="primary" 
-                           style={{ color: 'white' }} 
                            onChange={(e) => setUser({ ...user, agreedTerms: e.target.checked })} 
                         />}
-                label={<Typography color="#000000">I agree to the <a href='/terms&conditions' style={{ color: 'green' }}>terms and conditions.</a></Typography>}
+                label={<Typography color="#0b0b0b">I agree to the <a href='/terms&conditions' style={{ color: 'green' }}>terms and conditions.</a></Typography>}
               />
               <Button
                 type="submit"
@@ -154,14 +187,12 @@ function SignUp() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/signin" variant="body2" color="#000000">
+                  <Link href="/signin" variant="body2" color="#0b0b0b">
                     Already have an account? Sign In
                   </Link>
-                  <br></br>
                 </Grid>
               </Grid>
-             
-            </Box>
+            </form>
           </Paper>
         </Box>
       </Container>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button } from '@mui/material'; // Import TextField component
+import { TextField, Button } from '@mui/material';
 import './AdminPlaces.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -93,7 +93,219 @@ const AdminPlaces = () => {
             },
           }}
         />
-        {/* Add other TextField components for other fields */}
+        <TextField
+          label="Description"
+          fullWidth
+          name="description"
+          multiline
+          rows={4}
+          value={placeData.description}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <h3>Location:</h3>
+        <TextField
+          label="Address"
+          fullWidth
+          name="location.address"
+          value={placeData.location.address}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="City"
+          fullWidth
+          name="location.city"
+          value={placeData.location.city}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="State"
+          fullWidth
+          name="location.state"
+          value={placeData.location.state}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Country"
+          fullWidth
+          name="location.country"
+          value={placeData.location.country}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Images (Separate URLs with commas)"
+          fullWidth
+          name="images"
+          value={placeData.images.join(',')}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Video"
+          fullWidth
+          name="video"
+          value={placeData.video}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Opening Hours"
+          fullWidth
+          name="openingHours"
+          value={placeData.openingHours}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Entry Fees"
+          fullWidth
+          name="entryFees"
+          value={placeData.entryFees}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <h3>Contact Information:</h3>
+        <TextField
+          label="Phone"
+          fullWidth
+          name="contactInformation.phone"
+          value={placeData.contactInformation.phone}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Email"
+          fullWidth
+          name="contactInformation.email"
+          value={placeData.contactInformation.email}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        <TextField
+          label="Website"
+          fullWidth
+          name="contactInformation.website"
+          value={placeData.contactInformation.website}
+          onChange={handleChange}
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
         <Button type="submit" variant="contained" className="submit-btn">Add Place</Button>
       </form>
     </div>
