@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useAuth } from './auth'; 
 import './idle-monitor.css'; 
@@ -6,42 +6,44 @@ import './idle-monitor.css';
 function IdleMonitor() {
   const { LogoutUser } = useAuth(); 
   const [idleModal, setIdleModal] = useState(false);
+  const idleTimeout = 1000 * 60 * 5;  // 5 minutes
+  const idleLogout = 1000 * 60 * 10; // 10 minutes
+  const idleEventRef = useRef(null);
+  const idleLogoutEventRef = useRef(null);
 
-  let idleTimeout = 1000 * 60 * 5;  // 1 minute
-  let idleLogout = 1000 * 60 * 10; // 2 Minutes
-  let idleEvent;
-  let idleLogoutEvent;
+  const sessionTimeout = useCallback(() => {
+    if (idleEventRef.current) clearTimeout(idleEventRef.current);
+    if (idleLogoutEventRef.current) clearTimeout(idleLogoutEventRef.current);
+  
+    idleEventRef.current = setTimeout(() => setIdleModal(true), idleTimeout);
+    idleLogoutEventRef.current = setTimeout(() => LogoutUser(), idleLogout);
+  }, [LogoutUser, idleTimeout, idleLogout]);
 
-  const events = [
-    'mousemove',
-    'click',
-    'keypress'
-  ];
-  const sessionTimeout = () => {
-    if (idleEvent) clearTimeout(idleEvent);
-    if (idleLogoutEvent) clearTimeout(idleLogoutEvent);
-  
-    idleEvent = setTimeout(() => setIdleModal(true), idleTimeout);
-    idleLogoutEvent = setTimeout(() => LogoutUser(), idleLogout);
-  };
-  
   const extendSession = () => {
-    clearTimeout(idleEvent);
+    clearTimeout(idleEventRef.current);
     setIdleModal(false);
     sessionTimeout(); // Restart idle timeout
   }
 
   useEffect(() => {
+    const events = ['mousemove', 'click', 'keypress'];
+
+    const handleEvents = () => {
+      clearTimeout(idleEventRef.current);
+      setIdleModal(false);
+      sessionTimeout(); // Restart idle timeout
+    };
+
     for (let e of events) {
-      window.addEventListener(e, sessionTimeout);
+      window.addEventListener(e, handleEvents);
     }
 
     return () => {
       for (let e of events) {
-        window.removeEventListener(e, sessionTimeout);
+        window.removeEventListener(e, handleEvents);
       }
     }
-  }, []);
+  }, [sessionTimeout]);
 
   return (
     <Modal isOpen={idleModal} toggle={() => setIdleModal(false)} className="idle-modal">

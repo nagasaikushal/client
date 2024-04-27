@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material'; // Import TextField component
 import './AdminPlaces.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,7 +75,25 @@ const AdminPlaces = () => {
     <div className="admin-places-container">
       <h2>Add New Place</h2>
       <form onSubmit={handleSubmit} className="place-form">
-        {/* Form fields */}
+        <TextField
+          label="Title"
+          fullWidth
+          name="title"
+          value={placeData.title}
+          onChange={handleChange}
+          required
+          sx={{
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '5px',
+            '& label': {
+              color: '#0b0b0b',
+            },
+            '&:hover label': {
+              color: '#4caf50',
+            },
+          }}
+        />
+        {/* Add other TextField components for other fields */}
         <Button type="submit" variant="contained" className="submit-btn">Add Place</Button>
       </form>
     </div>

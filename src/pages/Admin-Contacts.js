@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../store/auth';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import config from '../config';
 
 const AdminContacts = () => {
   const { authorizationToken } = useAuth();
   const [contactData, setContactData] = useState([]);
 
-  const getContactsData = async () => {
+  // Wrap the definition of getContactsData in useCallback
+  const getContactsData = useCallback(async () => {
     try {
       const response = await fetch(`${config.url}/api/admin/contacts`, {
         method: "GET",
@@ -23,29 +24,29 @@ const AdminContacts = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [authorizationToken]); // Include authorizationToken as a dependency
 
-  const deleteContactById=async(id)=>{
-      try {
-        const response=await fetch(`${config.url}/api/admin/contacts/delete/${id}`,{
-          method:'DELETE',
-          headers:{
-            Authorization:authorizationToken,
-          }
-        });
-        if(response.ok){
-          getContactsData();
-          toast.success("Deleted Successfully");
+  const deleteContactById = async (id) => {
+    try {
+      const response = await fetch(`${config.url}/api/admin/contacts/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: authorizationToken,
         }
-      } catch (error) {
-        console.log(error);
-        toast.error("Error in Deleting");
+      });
+      if (response.ok) {
+        getContactsData(); // No need to modify this call
+        toast.success("Deleted Successfully");
       }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in Deleting");
+    }
   }
 
   useEffect(() => {
-    getContactsData();
-  }, []);
+    getContactsData(); // Call the memoized getContactsData function
+  }, [getContactsData]); // Include getContactsData in the dependency array
 
   return (
     <div style={styles.container}>
@@ -56,7 +57,7 @@ const AdminContacts = () => {
             <p style={styles.username}>{username}</p>
             <p style={styles.email}>{email}</p>
             <p style={styles.message}>{message}</p>
-            <button style={styles.deleteBtn} onClick={()=>deleteContactById(_id)}>DELETE</button> 
+            <button style={styles.deleteBtn} onClick={() => deleteContactById(_id)}>DELETE</button>
           </div>
         );
       })}

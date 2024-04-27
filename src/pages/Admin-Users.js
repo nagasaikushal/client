@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../store/auth';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,7 +9,7 @@ const AdminUsers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { authorizationToken } = useAuth();
 
-  const getAllUsersData = async () => {
+  const getAllUsersData = useCallback(async () => {
     try {
       const response = await fetch(`${config.url}/api/admin/users`, {
         method: "GET",
@@ -23,11 +23,11 @@ const AdminUsers = () => {
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  };
+  }, [authorizationToken]);
 
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/delete/${id}`, {
+      const response = await fetch(`${config.url}/api/admin/users/delete/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: authorizationToken,
@@ -48,7 +48,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     getAllUsersData();
-  }, [authorizationToken]);
+  }, [getAllUsersData]);
 
   const filteredUsers = users.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -66,7 +66,7 @@ const AdminUsers = () => {
           />
         </div>
         <div className='container admin-users'>
-          <div className='white-background-card'> {/* Added */}
+          <div className='white-background-card'>
             <table>
               <thead>
                 <tr>
