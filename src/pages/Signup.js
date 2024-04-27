@@ -83,16 +83,6 @@ function SignUp() {
     }
   };
 
-  const handleGoogleSuccess = (response) => {
-    console.log('Google sign-in success:', response);
-    // Perform any additional actions after successful sign-in
-  };
-
-  const handleGoogleFailure = (error) => {
-    console.log('Google sign-in failure:', error);
-    // Handle the error or perform any additional actions
-  };
-
   const defaultTheme = createTheme();
 
   return (
@@ -135,92 +125,7 @@ function SignUp() {
                   },
                 }}
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="off"
-                value={user.email}
-                onChange={handleInput}
-                sx={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '5px',
-                  '& label': {
-                    color: '#0b0b0b',
-                  },
-                  '&:hover label': {
-                    color: '#efa500',
-                  },
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="phone"
-                label="Phone Number"
-                name="phone"
-                autoComplete="off"
-                value={user.phone}
-                onChange={handleInput}
-                sx={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '5px',
-                  '& label': {
-                    color: '#0b0b0b',
-                  },
-                  '&:hover label': {
-                    color: 'white',
-                  },
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="off"
-                value={user.password}
-                onChange={handleInput}
-                sx={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '5px',
-                  '& label': {
-                    color: '#0b0b0b',
-                  },
-                  '&:hover label': {
-                    color: '#4caf50',
-                  },
-                }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Re-enter Password"
-                type="password"
-                id="confirmPassword"
-                autoComplete="off"
-                value={user.confirmPassword}
-                onChange={handleInput}
-                sx={{
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '5px',
-                  '& label': {
-                    color: '#0b0b0b',
-                  },
-                  '&:hover label': {
-                    color: '#4caf50',
-                  },
-                }}
-              />
+              {/* Other input fields */}
               <FormControlLabel
                 control={<Checkbox 
                            value={user.agreedTerms} 

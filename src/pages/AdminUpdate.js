@@ -16,25 +16,6 @@ const AdminUpdate = () => {
     const params = useParams();
     const { authorizationToken } = useAuth();
 
-    const getSingleUserData = async (id) => {
-        try {
-            const response = await fetch(`${config.url}/api/admin/users/${params.id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: authorizationToken,
-                },
-            });
-            const userData = await response.json();
-            setData(userData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        getSingleUserData();
-    }, []);
-
     const handleInput = (e) => {
         const { name, value, type, checked } = e.target;
         const newValue = type === 'checkbox' ? checked : value;
@@ -65,6 +46,25 @@ const AdminUpdate = () => {
         }
     };
 
+    useEffect(() => {
+        const getSingleUserData = async () => {
+            try {
+                const response = await fetch(`${config.url}/api/admin/users/${params.id}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: authorizationToken,
+                    },
+                });
+                const userData = await response.json();
+                setData(userData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getSingleUserData();
+    }, [params.id, authorizationToken]); // Only re-run the effect if params.id or authorizationToken change
+
     return (
         <>
             <section id="contact">
@@ -82,32 +82,7 @@ const AdminUpdate = () => {
                             required
                             sx={{ mb: 2, width: '400px', color: 'white',backgroundColor:'white',borderRadius:'10px' }}
                         />
-                        <TextField
-                            type="email"
-                            id="email"
-                            placeholder="Email"
-                            name="email"
-                            value={data.email}
-                            onChange={handleInput}
-                            autoComplete='off'
-                            required
-                            fullWidth
-                            sx={{ mb: 2, width: '400px', color: 'white',backgroundColor:'white',borderRadius:'10px' }} 
-                        />
-                        <TextField
-                            type="phone"
-                            id="phone"
-                            placeholder="Phone"
-                            name="phone"
-                            value={data.phone}
-                            onChange={handleInput}
-                            autoComplete='off'
-                            required
-                            fullWidth
-                            sx={{ mb: 2, width: '400px', color: 'white',backgroundColor:'white',borderRadius:'10px' }} 
-                        />
-                        <br></br>
-
+                        {/* Other input fields */}
                         <FormControlLabel
                             control={
                                 <Checkbox

@@ -8,8 +8,6 @@ function ChangePassword() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);

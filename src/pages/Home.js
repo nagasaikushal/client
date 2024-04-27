@@ -6,7 +6,7 @@ import tajmahal from '../assets/cards/tajmahal.jpg';
 import redfort from '../assets/cards/redfort.jpg';
 import goldentemple from '../assets/cards/goldentemple.jpg';
 import aguadafort from '../assets/cards/aguadafort.jpg';
-import auth, { useAuth } from '../store/auth';
+import { useAuth } from '../store/auth';
 import Loading from './Loading';
 
 const cardData = [
