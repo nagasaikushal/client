@@ -27,22 +27,22 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/logout' element={<Logout />} />
-        <Route path="/places" element={<Places />} />
-        <Route path="/terms&conditions" element={<TermsAndConditions />} />
-        <Route path="/loading" element={<Loading />} />
-        <Route path='/otpmail' element={<OtpMail />} />
-        <Route path='/verifyotp' element={<VerifyOtp />} />
-        <Route path='/change-password' element={<ChangePassword />} />
+        <Route path="/Signin" element={<SignIn />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path='/Contact' element={<Contact />} />
+        <Route path='/Logout' element={<Logout />} />
+        <Route path="/Places" element={<Places />} />
+        <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+        <Route path="/Loading" element={<Loading />} />
+        <Route path='/OtpMail' element={<OtpMail />} />
+        <Route path='/VerifyOtp' element={<VerifyOtp />} />
+        <Route path='/ChangePassword' element={<ChangePassword />} />
         <Route path="/*" element={<Error />} />
         <Route path="/admin/*" element={<AdminLayout />}>
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="contacts" element={<AdminContacts />} />
+          <Route path="AdminUsers" element={<AdminUsers />} />
+          <Route path="AdminContacts" element={<AdminContacts />} />
           <Route path="users/:id/edit" element={<AdminUpdate />} />
-          <Route path="places/add" element={<AdminPlaces />} />
+          <Route path="AdminPlaces/add" element={<AdminPlaces />} />
         </Route>
       </Routes>
     </div>
